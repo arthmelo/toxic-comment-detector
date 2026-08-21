@@ -58,8 +58,5 @@ Abaixo, os resultados obtidos em cada um dos algoritmos durante a avaliação fi
 Para colocar a teoria em prática, o repositório conta com o arquivo app.py. Ao executá-lo, o usuário interage com um simulador de celular via web, onde é possível selecionar qual dos cinco modelos atuará como o filtro de censura em tempo real para os comentários que são digitados na tela.
 
 ## Próximos Passos
-
-- Otimizar os hiperparâmetros dos modelos via GridSearch.
-- Implementar validação cruzada no pipeline principal.
 - Tratar e normalizar gírias ou erros ortográficos intencionais que burlam a identificação atual.
 - Explorar arquiteturas baseadas em Transformers, como BERTimbau.
