@@ -1,10 +1,10 @@
-# Detector de Toxidade em Redes Sociais
+# Detector de Toxicidade em Redes Sociais: Filtragem de Comentários com PLN e Deep Learning
 
 ## Sobre o Projeto
 
-Esse projeto tem como objetivo criar um modelo de Processamento de Linguagem Natural (PLN) para filtrar comentários em redes sociais, classificando-os como ofensivos ou não.
+Esse projeto é uma solução automatizada baseada em Processamento de Linguagem Natural (PLN) para detectar e filtrar comentários tóxicos e ofensivos em redes sociais. O objetivo principal é mostrar forma de proteger os usuários de discursos de ódio na internet, criando um ambiente digital mais seguro através de filtros de comentários nocivos antes que elas impactem os usuários.
 
-O cyberbullying é frequente nas redes sociais devido ao anonimato e à falta de fiscalização. Com uma filtragem eficiente realizada antes mesmo da exibição do comentário, é possível proteger jovens e adultos da exposição a mensagens de ódio e intimidação. Para demonstrar a aplicação prática do projeto, foi desenvolvida uma interface simulando o feed de uma rede social fictícia, o "Instagrão".
+Para demonstrar a utilidade prática do algoritmo, foi construída uma interface interativa simples que simula o feed de uma rede social fictícia batizada de "Instagrão". Nesta aplicação, o usuário pode digitar comentários e selecionar diferentes modelos de Inteligência Artificial para atuar como um filtro de censura em tempo real.
 
 ![image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.rawpixel.com%2Fimage_800%2FcHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTEwL3JtNTg1ZGVzaWduLXMtYS1yZW1peC0wOC5qcGc.jpg&f=1&nofb=1&ipt=4bd80f61826d65a8fac47efeb2a729e4303659fbd67a2c2b99c640d9176ab97f)
 
