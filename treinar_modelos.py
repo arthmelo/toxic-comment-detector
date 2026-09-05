@@ -15,9 +15,9 @@ from sklearn.svm import LinearSVC
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.utils import pad_sequences
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Embedding, Conv1D, GlobalMaxPooling1D, Dense, Dropout
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout, Bidirectional
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 os.makedirs('./models', exist_ok=True)
@@ -44,10 +44,10 @@ else:
 X = df['text_normalized_str']
 y = df['toxic']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10, random_state=42, stratify=y)
 
 X_train_nn, X_val_nn, y_train_nn, y_val_nn = train_test_split(
-    X_train, y_train, test_size=0.15, random_state=42, stratify=y_train
+    X_train, y_train, test_size=0.10, random_state=42, stratify=y_train
 )
 
 tfidf = TfidfVectorizer(max_features=10000)
@@ -93,30 +93,29 @@ svm.fit(X_train_vec, y_train)
 joblib.dump(svm, './models/svm_model.pkl')
 print("--svm_model.pkl salvo\n")
 
-print("Treinando CNN...\n")
+print("Treinando RNN (LSTM)...\n")
 
 vocab_size = min(MAX_WORDS, len(tokenizer.word_index) + 1)
 early_stopping = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
 
-cnn_checkpoint = ModelCheckpoint('./models/cnn_model.keras', monitor='val_loss', save_best_only=True)
+rnn_checkpoint = ModelCheckpoint('./models/rnn_model.keras', monitor='val_loss', save_best_only=True)
 
-model_cnn = Sequential([
+model_rnn = Sequential([
     Embedding(input_dim=vocab_size, output_dim=128, input_length=MAX_LEN),
-    Conv1D(filters=128, kernel_size=5, activation='relu'),
-    GlobalMaxPooling1D(),
+    LSTM(64, dropout=0.3, recurrent_dropout=0.3),
     Dense(64, activation='relu'),
     Dropout(0.5),
     Dense(1, activation='sigmoid')
 ])
 
-model_cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-model_cnn.fit(
+model_rnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model_rnn.fit(
     X_train_pad, y_train_nn,
     validation_data=(X_val_pad, y_val_nn),
     epochs=15, batch_size=64,
-    callbacks=[early_stopping, cnn_checkpoint],
+    callbacks=[early_stopping, rnn_checkpoint],
     verbose=0
 )
-print("--cnn_model.keras salvo\n")
+print("--rnn_model.keras salvo\n")
 
 print("Treinamento concluído. Todos os modelos foram salvos na pasta 'models'.\n")
